@@ -5,12 +5,13 @@
  *
  * @author Dusan Lukic <ldusan84@gmail.com>
  */
-class card
+class Card
 {
 
     public $destination;
     public $transportation;
     public $start;
+    public $seat;
 
     /**
      * Fill card data in constructor

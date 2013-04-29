@@ -5,15 +5,15 @@
  *
  * @author Dusan Lukic <ldusan84@gmail.com>
  */
-class trip
+class Trip
 {
 
-    public $points;
-    public $cards;
-    public $begin;
-    public $end;
-    public $moment; // current place
-    public $trip_end = true;
+    private $points;
+    private $cards;
+    private $begin;
+    private $end;
+    private $moment; // current place
+    private $trip_end = true;
 
     /**
      * Sort cards.
@@ -23,24 +23,19 @@ class trip
     private function sort($cards)
     {
 
-        $this->cards = $cards;
-
         while (true) {
 
-            foreach ($this->cards as $key => $val) {
+            foreach ($cards as $key => $val) {
 
                 // if start of the card is where we are, add card to stack
-
                 if ($val->start == $this->moment) {
 
                     // add to stack
                     $this->add($val);
-
                     // set new "moment" (current place) to destination of current card
                     $this->moment = $val->destination;
-
                     // remove this card
-                    unset($this->cards[$key]);
+                    unset($cards[$key]);
                 }
             }
 
@@ -77,7 +72,6 @@ class trip
         }
 
         // set current place to beginning
-
         $this->moment = $this->begin;
     }
 
@@ -92,14 +86,19 @@ class trip
         $this->points[] = $card;
     }
 
+    /**
+     * Output final string.
+     *
+     * @return string
+     */
     private function output()
     {
 
         foreach ($this->points as $key => $val) {
-            $stack[] = "Take " . $val->transportation . " from " . $val->start . " to
-                " . $val->destination . " .The seat is: " . $val->seat;
+            $stack[] = "Take " . $val->transportation . " from " . $val->start . " to " . $val->destination .
+            	". The seat is: " . $val->seat;
         }
-        $final = implode(" \n", $stack);
+        $final = implode("\n", $stack);
 
         return $final;
     }
